@@ -15,6 +15,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// env port
+app.set(process.env.PORT || 80);
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -82,6 +85,8 @@ app.use('/wechat', wechat('mrnoodle').text(function (message, req, res, next) {
 }).middlewarify());
 
 //var port = process.env.VCAP_APP_PORT || 80
-app.listen(80);
+app.listen(app.get('port'), function(){
+	console.log('Express server listening at port ' + app.get('port'));
+});
 
 module.exports = app;
